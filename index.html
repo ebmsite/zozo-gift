@@ -13,6 +13,24 @@
       --text:#f7f7fb;
       --muted:rgba(247,247,251,0.75);
     }
+    .main-text {
+  font-size: 28px;
+  margin: 0 0 18px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.typed {
+  color: var(--accent);
+  font-weight: 800;
+  display: inline-block;
+  min-width: 6em; /* يحافظ على نفس العرض أثناء الكتابة */
+  text-align: center;
+}
+
     *{box-sizing:border-box;margin:0;padding:0}
     html,body{height:100%;font-family:'Cairo',sans-serif;scroll-behavior:smooth;overflow-x:hidden;}
     body{background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);overflow-y:auto;}
