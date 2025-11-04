@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>إلى نور قلبي زلفى</title>
+  <title>إلى نور قلبي</title>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -17,40 +17,41 @@
     html,body{height:100%;font-family:'Cairo',sans-serif;scroll-behavior:smooth;overflow-x:hidden;}
     body{background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);overflow-y:auto;}
 
-    /* شاشة الافتتاح */
-    #intro{
+    /* شاشة الانتظار */
+    #loadingScreen{
       position:fixed;inset:0;z-index:9999;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
       background:linear-gradient(180deg,var(--bg1),var(--bg2));
-      display:flex;align-items:center;justify-content:center;flex-direction:column;
-      color:white;font-size:22px;text-align:center;
-      overflow:hidden;
+      color:var(--text);
+      font-size:20px;text-align:center;
+      animation:fadeOut 1.2s ease-in-out forwards;
+      animation-delay:7s;
+      padding:0 20px;
     }
-    #intro p{max-width:700px;line-height:1.9;font-size:24px;opacity:0;white-space:pre-line;}
-    #intro.fade-out{animation:fadeOut 1.5s forwards ease-in-out;}
+    #loadingText{max-width:700px;white-space:pre-line;opacity:0;animation:type 6s steps(60,end) forwards;}
+    @keyframes type{to{opacity:1;}}
     @keyframes fadeOut{to{opacity:0;visibility:hidden;}}
     .heart-bg{position:absolute;width:100%;height:100%;overflow:hidden;z-index:-1;}
     .heart{position:absolute;color:rgba(255,255,255,0.15);font-size:20px;animation:float 7s linear infinite;}
     @keyframes float{0%{transform:translateY(100vh) scale(0.8);}100%{transform:translateY(-10vh) scale(1.2);}}
-    .flash{animation:flashEffect 1.5s ease-in-out forwards;}
-    @keyframes flashEffect{0%{opacity:1;transform:scale(1);}50%{opacity:0.8;transform:scale(1.1);}100%{opacity:0;visibility:hidden;}}
 
-    header{position:relative;z-index:2;padding:48px 24px;display:flex;align-items:center;justify-content:space-between;}
+    header{position:relative;z-index:2;padding:24px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;}
     .logo{display:flex;align-items:center;gap:10px}
-    .logo .mark{width:50px;height:50px;border-radius:16px;background:linear-gradient(135deg,var(--accent),#ff9db3);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.35)}
-    .logo .mark svg{width:28px;height:28px;}
+    .logo .mark{width:45px;height:45px;border-radius:16px;background:linear-gradient(135deg,var(--accent),#ff9db3);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,0,0,0.35)}
+    .logo .mark svg{width:25px;height:25px;}
 
-    .container{max-width:1100px;margin:0 auto;padding:20px 20px;position:relative;z-index:2}
-    .card{background:rgba(255,255,255,0.08);border-radius:20px;padding:30px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.05);opacity:0;transform:translateY(50px);transition:all 1s ease-out;}
+    .container{max-width:1100px;margin:0 auto;padding:20px;position:relative;z-index:1;}
+    .card{background:rgba(255,255,255,0.08);border-radius:20px;padding:25px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.05);opacity:0;transform:translateY(50px);transition:all 1s ease-out;}
     .card.visible{opacity:1;transform:translateY(0);}
 
-    .main-text{font-size:34px;margin:0 0 18px 0;text-shadow:0 0 15px rgba(255,255,255,0.3)}
+    .main-text{font-size:28px;margin:0 0 18px;text-shadow:0 0 15px rgba(255,255,255,0.3)}
     .typed{color:var(--accent);font-weight:800}
 
-    .nav{display:flex;gap:20px}
+    .nav{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
     .nav a{text-decoration:none;color:var(--muted);font-weight:600;transition:0.3s}
     .nav a:hover{color:var(--accent)}
 
-    section{margin:60px 0}
+    section{margin:50px 0}
 
     footer{text-align:center;padding:20px;color:var(--muted);font-size:13px;margin-top:40px}
 
@@ -58,13 +59,29 @@
     .phrase,.poem{background:rgba(255,255,255,0.1);padding:15px;border-radius:10px;font-size:18px;text-align:center;transition:transform 0.3s;}
     .phrase:hover,.poem:hover{transform:scale(1.03);background:rgba(255,255,255,0.15)}
 
-    main{position:relative;top:0;transition:top 0.5s ease;}
+    /* تحسين العرض للجوال */
+    @media (max-width:768px){
+      header{flex-direction:column;align-items:center;text-align:center}
+      .nav{justify-content:center}
+      .main-text{font-size:24px;text-align:center}
+      .card{padding:20px}
+      .phrase,.poem{font-size:16px}
+      #loadingText{font-size:18px}
+    }
+
+    @media (max-width:480px){
+      .main-text{font-size:22px}
+      .card{padding:18px}
+      footer{font-size:12px}
+      .logo .mark{width:40px;height:40px}
+      .logo h1{font-size:20px}
+    }
   </style>
 </head>
 <body>
-  <div id="intro">
+  <div id="loadingScreen">
     <div class="heart-bg"></div>
-    <p id="introText"></p>
+    <p id="loadingText">يا [زلفى]...منذ أن دخلتِ حياتي، تغيّر كل شيء صار قلبي يعرف الفرح من نغمة صوتك،وصارت أيامي تزهر حين تبتسمين أحبك حدّ الامتنان، لأنكِ أنتِ الحلم الذي لم ينتهِ بعد. 💞</p>
   </div>
 
   <canvas id="bg-canvas"></canvas>
@@ -121,33 +138,10 @@
   </main>
 
   <script>
-    // شاشة الافتتاح
-    const introText = `يا [زلفى]...\nمنذ أن دخلتِ حياتي، تغيّر كل شيء.\nصار قلبي يعرف الفرح من نغمة صوتك،\nوصارت أيامي تزهر حين تبتسمين.\nأحبك حدّ الامتنان، لأنكِ أنتِ الحلم الذي لم ينتهِ بعد. 💞`;
-    const introP = document.getElementById('introText');
-    let i = 0;
-    function typeText(){
-      if(i < introText.length){
-        introP.textContent += introText.charAt(i);
-        introP.style.opacity = 1;
-        i++;
-        setTimeout(typeText,60);
-      } else {
-        setTimeout(()=>{
-          document.getElementById('intro').classList.add('fade-out');
-          setTimeout(()=>{
-            document.getElementById('intro').remove();
-            window.scrollTo({top:0,behavior:'instant'});
-            document.querySelector('main').style.top = '0';
-          },1500);
-        },800);
-      }
-    }
-    typeText();
-
-    // إنشاء قلوب متحركة في الخلفية
+    // قلوب الخلفية لشاشة الانتظار
     const heartBg = document.querySelector('.heart-bg');
     for(let j=0;j<25;j++){
-      const h = document.createElement('div');
+      const h=document.createElement('div');
       h.className='heart';
       h.textContent='❤';
       h.style.left=Math.random()*100+'%';
@@ -156,23 +150,28 @@
       heartBg.appendChild(h);
     }
 
-    // باقي المؤثرات
-    const typed = document.getElementById('typed');
-    const texts = ['يا قمري', 'يا وردتي', 'يا نبضي','يا حياتي','يا عيوني', 'يا سعادتي'];
-    let ti=0, ci=0;
+    // إزالة شاشة الانتظار بعد المدة
+    setTimeout(()=>{document.getElementById('loadingScreen').style.display='none';},7200);
+
+    // كتابة متغيرة في الصفحة الرئيسية
+    const typed=document.getElementById('typed');
+    const texts=['يا قمري','يا وردتي','يا نبضي','يا سعادتي'];
+    let ti=0,ci=0;
     function typing(){
-      const txt = texts[ti];
-      if(ci<=txt.length){typed.textContent = txt.slice(0,ci);ci++;setTimeout(typing,130)}
+      const txt=texts[ti];
+      if(ci<=txt.length){typed.textContent=txt.slice(0,ci);ci++;setTimeout(typing,130)}
       else{setTimeout(()=>{const del=setInterval(()=>{if(ci>0){ci--;typed.textContent=txt.slice(0,ci);}else{clearInterval(del);ti=(ti+1)%texts.length;setTimeout(typing,500);}},70);},1000)}
     }
     typing();
 
+    // خلفية النجوم
     const canvas=document.getElementById('bg-canvas');
     const ctx=canvas.getContext('2d');
     let w,h;function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;}resize();window.addEventListener('resize',resize);
     const stars=[];for(let i=0;i<100;i++){stars.push({x:Math.random()*w,y:Math.random()*h,s:Math.random()*2+0.5,v:Math.random()*0.5+0.2});}
     function draw(){ctx.clearRect(0,0,w,h);ctx.fillStyle='rgba(255,255,255,0.7)';stars.forEach(st=>{ctx.beginPath();ctx.arc(st.x,st.y,st.s,0,Math.PI*2);ctx.fill();st.y+=st.v;if(st.y>h)st.y=0;});requestAnimationFrame(draw);}draw();
 
+    // ظهور البطاقات بتأثير عند التمرير
     const cards=document.querySelectorAll('.card');
     const observer=new IntersectionObserver(entries=>{
       entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});
